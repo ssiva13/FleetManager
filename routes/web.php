@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +12,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+	
+	use Laravel\Lumen\Routing\Router;
+	
+	$router->get('/', 'HomeController@home');
+	$router->group(['prefix' => 'admin/'], function () use ($router) {
+		$router->get('llist', 'LookupListController@all');
+	});
