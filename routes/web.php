@@ -18,4 +18,9 @@
 	$router->get('/', 'HomeController@home');
 	$router->group(['prefix' => 'admin/'], function () use ($router) {
 		$router->get('llist', 'LookupListController@all');
+		$router->get('llist/{id}', 'LookupListController@get');
+		$router->post('llist', 'LookupListController@add');
+		$router->put('llist/{id}', 'LookupListController@put');
+		$router->delete('llist/{id}', 'LookupListController@remove');
+		$router->post('llist/batchDelete', 'LookupListController@BatchDelete');
 	});
