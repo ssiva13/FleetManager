@@ -5,10 +5,11 @@ namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Laravel\Lumen\Http\Request as LumenRequest;
 
 trait RESTActions {
 	
-	protected $statusCodes = [
+	protected array $statusCodes = [
 		'done' => 200,
 		'created' => 201,
 		'removed' => 204,
@@ -37,14 +38,14 @@ trait RESTActions {
 	public function add(Request $request): JsonResponse
 	{
 		$modelClass = self::MODEL;
-		$this->validate($request, $modelClass::$rules);
+		$this->validate($request, $modelClass::rules(), $modelClass::messages());
 		return $this->respond('created', $modelClass::create($request->all()));
 	}
 	
 	public function put(Request $request, $id): JsonResponse
 	{
 		$modelClass = self::MODEL;
-		$this->validate($request, $modelClass::$rules);
+		$this->validate($request, $modelClass::rules(), $modelClass::messages());
 		$model = $modelClass::find($id);
 		if(is_null($model)){
 			return $this->respond('not_found');
@@ -59,7 +60,8 @@ trait RESTActions {
 		if(is_null($modelClass::find($id))){
 			return $this->respond('not_found');
 		}
-		$modelClass::destroy($id);
+		$model = $modelClass::find($id);
+		$model::destroy($id);
 		return $this->respond('removed');
 	}
 	
