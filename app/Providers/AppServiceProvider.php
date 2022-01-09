@@ -13,6 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+	    if ($this->app->environment() == 'local') {
+		    $this->app->register(\KitLoong\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
+		    $this->app->register(\Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class);
+		    $this->app->register(\Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+	    }
     }
 }
