@@ -17,10 +17,16 @@
 	
 	$router->get('/', 'HomeController@home');
 	$router->group(['prefix' => 'admin/'], function () use ($router) {
-		$router->get('llist', 'LookupListController@all');
+		// Start Routes for resource llist
+		
+		$router->get('llist/index', 'LookupListController@index');
+		$router->get('llist/all', 'LookupListController@all');
+		$router->get('llist/trashed', 'LookupListController@trashed');
 		$router->get('llist/{id}', 'LookupListController@get');
 		$router->post('llist', 'LookupListController@add');
 		$router->put('llist/{id}', 'LookupListController@put');
 		$router->delete('llist/{id}', 'LookupListController@remove');
-		$router->post('llist/batchDelete', 'LookupListController@BatchDelete');
+		$router->post('llist/{id}', 'LookupListController@forceDelete');
+		
+		// End Routes for resource llist
 	});

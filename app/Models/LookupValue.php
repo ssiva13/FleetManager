@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -18,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property LookupList $lookupList
  * @property LookupValue $lookupValue
  */
-class LookupValue extends Model
+class LookupValue extends AppModel
 {
     /**
      * The "type" of the auto-incrementing ID.
