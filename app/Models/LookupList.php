@@ -31,7 +31,7 @@ class LookupList extends AppModel
 	
 	/**
 	 *
-	 * @return string[]
+	 * @return array
 	 */
 	public function rules(): array
 	{

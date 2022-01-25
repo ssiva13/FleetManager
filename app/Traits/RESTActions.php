@@ -30,7 +30,7 @@ trait RESTActions {
 		return $this->respond('done', $models);
 	}
 	
-	public function allInclusive(): JsonResponse
+	public function all(): JsonResponse
 	{
 		$modelClass = self::MODEL;
 		$models = $modelClass::withTrashed()->get();

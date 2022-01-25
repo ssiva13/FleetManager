@@ -29,15 +29,49 @@ class LookupValue extends AppModel
     /**
      * @var array
      */
-    protected $fillable = ['fk_lookup_list', 'fk_parent_value', 'option_key', 'option_value', 'status', 'created_at', 'updated_at', 'has_children'];
+    protected $fillable = ['fk_lookup_list', 'fk_parent_value', 'option_key', 'option_value', 'status', 'created_at',
+	    'deleted_at', 'updated_at', 'has_children'];
 	
 	/**
-	 * @var array
+	 *
+	 * @return array
 	 */
-	public $rules = [
-	
-	];
-	
+	public function rules(): array
+	{
+		return [
+			'fk_lookup_list' => 'required|integer',
+			'fk_parent_value' => 'integer',
+			'option_key' => 'required|string|max:20',
+			'option_value' => 'required|string|max:50',
+			'has_children' => 'integer|between:0,1',
+			'status' => 'required|integer|between:0,1',
+		];
+	}
+	/**
+	 * Custom message for validation
+	 *
+	 * @return array
+	 */
+	public function messages() : array
+	{
+		return [
+			'has_children.between' => 'The :attribute value must be either 0 or 1 !',
+			'status.between' => 'The :attribute value must be either 0 or 1 !',
+		];
+	}
+	public function attributes(): array
+	{
+		return [
+			'fk_lookup_list' => 'Lookup Type',
+			'fk_parent_value' => 'Lookup Parent Value',
+			'option_key' => 'Lookup Option Key',
+			'option_value' => 'Lookup Option Value',
+			'status'  => 'Lookup Value Status',
+			'has_children'  => 'Has Children Values',
+			'created_at'  => 'Date Created',
+			'updated_at'  => 'Date Modified',
+		];
+	}
     /**
      * @return BelongsTo
      */

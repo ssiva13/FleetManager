@@ -29,4 +29,18 @@
 		$router->post('llist/{id}', 'LookupListController@forceDelete');
 		
 		// End Routes for resource llist
+		
+		// Start Routes for resource lvalues
+		
+		$router->get('lvalues/index', 'LookupValueController@index');
+		$router->get('lvalues/all', 'LookupValueController@all');
+		$router->get('lvalues/trashed', 'LookupValueController@trashed');
+		$router->get('lvalues/{id}', 'LookupValueController@get');
+		$router->post('lvalues', 'LookupValueController@add');
+		$router->put('lvalues/{id}', 'LookupValueController@put');
+		$router->delete('lvalues/{id}', 'LookupValueController@remove');
+		$router->post('lvalues/{id}', 'LookupValueController@forceDelete');
+		
+		// End Routes for resource lvalues
 	});
+	
