@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeletesToUsersTable extends Migration
+class AddForeignKeysToCarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddSoftDeletesToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-	        $table->softDeletes();
+        Schema::table('cars', function (Blueprint $table) {
+            $table->foreign('owner')->references('id')->on('users_old')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -25,8 +25,8 @@ class AddSoftDeletesToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-	        $table->dropSoftDeletes();
+        Schema::table('cars', function (Blueprint $table) {
+            $table->dropForeign('cars_owner_foreign');
         });
     }
 }
