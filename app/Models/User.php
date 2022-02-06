@@ -7,8 +7,9 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Lumen\Auth\Authorizable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends AppModel implements AuthenticatableContract, AuthorizableContract
+class User extends AppModel implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
     use Authenticatable, Authorizable, HasFactory;
 
@@ -18,7 +19,7 @@ class User extends AppModel implements AuthenticatableContract, AuthorizableCont
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'username', 'email', 'password',
     ];
 
     /**
@@ -27,6 +28,72 @@ class User extends AppModel implements AuthenticatableContract, AuthorizableCont
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'password_confirmation', 'email_verified_at'
     ];
+	
+	public function attributes(): array
+	{
+		return [
+			'first_name' => 'First Name',
+			'email' => 'Email',
+			'username' => 'UserName',
+			'middle_name' => 'Middle Name',
+			'last_name' => 'Last Name',
+			'mobile' => 'Mobile Number',
+			'telephone' => 'Tel No',
+			'password' => 'Password',
+			'password_confirmation' => 'Confirm Password'
+		];
+	}
+	
+	public static function rules(): array
+	{
+		return [
+			'first_name' => 'required|string|max:25',
+			'email' => 'required|email|unique:users|max:50',
+			'username' => 'required|string|max:25|unique:users',
+			'middle_name' => 'string',
+			'last_name' => 'required|string|max:25',
+			'mobile' => 'required|string|max:15|unique:meta_users',
+			'telephone' => 'string|max:15|unique:meta_users',
+			'password' => 'min:8|required|string|confirmed|max:150',
+			'password_confirmation' => 'required|min:8'
+		];
+	}
+	
+	/**
+	 * Custom message for validation
+	 *
+	 * @return array
+	 */
+	public static function messages() : array
+	{
+		return [
+			'email.email' => 'The :attribute must be a valid email address!',
+			'email.unique' => 'User with the :attribute exists!',
+			'username.unique' => 'User with the :attribute exists!',
+			'telephone.unique' => 'User with the :attribute exists!',
+			'mobile.unique' => 'User with the :attribute exists!',
+		];
+	}
+	
+	/**
+	 * Get the identifier that will be stored in the subject claim of the JWT.
+	 *
+	 * @return mixed
+	 */
+	public function getJWTIdentifier()
+	{
+		return $this->getKey();
+	}
+	
+	/**
+	 * Return a key value array, containing any custom claims to be added to the JWT.
+	 *
+	 * @return array
+	 */
+	public function getJWTCustomClaims(): array
+	{
+		return [];
+	}
 }

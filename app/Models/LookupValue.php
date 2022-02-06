@@ -36,7 +36,7 @@ class LookupValue extends AppModel
 	 *
 	 * @return array
 	 */
-	public function rules(): array
+	public static  function rules(): array
 	{
 		return [
 			'fk_lookup_list' => 'required|integer',
@@ -52,13 +52,14 @@ class LookupValue extends AppModel
 	 *
 	 * @return array
 	 */
-	public function messages() : array
+	public static  function messages() : array
 	{
 		return [
 			'has_children.between' => 'The :attribute value must be either 0 or 1 !',
 			'status.between' => 'The :attribute value must be either 0 or 1 !',
 		];
 	}
+	
 	public function attributes(): array
 	{
 		return [
@@ -75,7 +76,7 @@ class LookupValue extends AppModel
     /**
      * @return BelongsTo
      */
-    public function lookupList()
+    public function lookupList(): BelongsTo
     {
         return $this->belongsTo('App\Models\LookupList', 'fk_lookup_list');
     }

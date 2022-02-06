@@ -33,7 +33,7 @@ class LookupList extends AppModel
 	 *
 	 * @return array
 	 */
-	public function rules(): array
+	public static  function rules(): array
 	{
 		return [
 			'type_name' => 'required|string|unique:lookup_lists|min:2|max:12',
@@ -46,7 +46,7 @@ class LookupList extends AppModel
 	 *
 	 * @return array
 	 */
-	public function messages() : array
+	public static  function messages() : array
 	{
 		return [
 			'type_name.required' => 'The :attribute value is required!',
