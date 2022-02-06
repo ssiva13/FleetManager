@@ -18,5 +18,6 @@ class AppServiceProvider extends ServiceProvider
 		    $this->app->register(\Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class);
 		    $this->app->register(\Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 	    }
+	    $this->app->register(\Tymon\JWTAuth\Providers\LumenServiceProvider::class);
     }
 }
