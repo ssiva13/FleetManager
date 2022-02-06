@@ -20,6 +20,7 @@ class CreateLookupListsTable extends Migration
             $table->string('data_type', 191);
             $table->boolean('required')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

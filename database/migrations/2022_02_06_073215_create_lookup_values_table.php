@@ -22,6 +22,7 @@ class CreateLookupValuesTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('fk_parent_value')->nullable()->index('fk_parent_value');
             $table->boolean('has_children')->default(0);
+            $table->softDeletes();
             $table->index(['fk_lookup_list', 'option_key'], 'un_lookup_list');
         });
     }
