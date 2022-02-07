@@ -76,16 +76,6 @@ class AuthController extends Controller
 	}
 	
 	/**
-	 * Get the authenticated User.
-	 *
-	 * @return JsonResponse
-	 */
-	public function profile(): JsonResponse
-	{
-		return response()->json(auth()->user());
-	}
-	
-	/**
 	 * Log the user out (Invalidate the token).
 	 *
 	 * @return JsonResponse

@@ -6,8 +6,22 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Lumen\Auth\Authorizable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+
+/**
+ * @property integer $id
+ * @property string $username
+ * @property string $email
+ * @property string $email_verified_at
+ * @property string $password
+ * @property string $remember_token
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
+ * @property MetaUser[] $metaUsers
+ */
 
 class User extends AppModel implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
@@ -19,7 +33,7 @@ class User extends AppModel implements AuthenticatableContract, AuthorizableCont
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'email_verified_at', 'remember_token'
     ];
 
     /**
@@ -75,6 +89,14 @@ class User extends AppModel implements AuthenticatableContract, AuthorizableCont
 			'telephone.unique' => 'User with the :attribute exists!',
 			'mobile.unique' => 'User with the :attribute exists!',
 		];
+	}
+	
+	/**
+	 * @return HasOne
+	 */
+	public function metaUsers(): HasOne
+	{
+		return $this->hasOne('App\Models\MetaUser', 'fk_user');
 	}
 	
 	/**

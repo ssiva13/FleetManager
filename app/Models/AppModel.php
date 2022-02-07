@@ -11,6 +11,13 @@
 		use SoftDeletes;
 		
 		/**
+		 * The "type" of the auto-incrementing ID.
+		 *
+		 * @var string
+		 */
+		protected $keyType = 'integer';
+		
+		/**
 		 * @var mixed
 		 */
 		private $defaultFillable = ['created_at', 'updated_at', 'deleted_at'];
