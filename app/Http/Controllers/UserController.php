@@ -62,9 +62,9 @@ class UserController extends Controller
 	public function put(Request $request, $id): JsonResponse
 	{
 		$modelClass = self::MODEL;
-		$this->validate($request, User::rules(), User::messages());
-		
-		if(!is_null($model = User::find($id))){
+		if(!is_null($model = User::with('metaUsers')->find($id) )){
+//			return $this->respond('done', gettype($model));
+//			return $this->respond('done', gettype($request->all()));
 			$model::update($request->all());
 //			$model->push();
 			$metaUser = $model->metaUsers;
